@@ -1,6 +1,6 @@
 const logEvents = require('./logEvents');
 
-const EventEmitter = require("events");
+/* const EventEmitter = require("events");
 
 class MyEmitter extends EventEmitter {};
 
@@ -13,4 +13,12 @@ myEnitter.on("log", (msg) => logEvents(msg));
 setTimeout(() => {
     //Emit event
     myEnitter.emit("log", "log event emitted!");
-},2000);
+},2000); */
+
+const event = require("events");
+
+const eventEmitter = new event.EventEmitter();
+
+eventEmitter.on("log", (msg) => logEvents(msg));
+
+eventEmitter.emit("log", "log event emitted!");
