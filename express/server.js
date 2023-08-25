@@ -1,9 +1,23 @@
 const express = require('express');
 const path = require('path');
+const subdir = require('./routes/subdir');
 
 const app = express();
 
-app.get("^/$|index(.html)?", (req,res)=>{
+// built in middlewares
+
+//middleware to handle urlencoded data or form data
+app.use(express.urlencoded({extended : false}));
+
+//middleware for json
+app.use(express.json());
+
+//serve static files 
+app.use(express.static(path.join(__dirname, "/public")));
+
+app.use("/", subdir);
+
+/* app.get("^/$|index(.html)?", (req,res)=>{
     //res.sendFile("./views/index.html", {root : __dirname});
     res.sendFile(path.join(__dirname, "views", "index.html"));
 });
@@ -16,7 +30,7 @@ app.get("/new(.html)?", (req, res) => {
 app.get("/old(.html)?", (req, res) => {
     // 301 indicates redirecting permently
     res.redirect(301,"/new.html") // 302 by default
-})
+}) */
 
 
 //route handlers
